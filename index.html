@@ -10,62 +10,71 @@
     <title>Gulgul Pay</title>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    var tezCircle = document.querySelector('.tez__circle');
+            var tezCircle = document.querySelector('.tez__circle');
 
-    tezCircle.addEventListener('click', function() {
-        window.navigator.vibrate(200);
-        playAudio();
-    });
-    function playAudio() {
-        var audio = new Audio('./images/gulgul.mp3');
-        audio.play();
-    }
-    });
-    function animateImage(image) {
-        image.classList.add('clicked');
-        document.querySelector('.overlay').style.display = 'block';
-    }
-    function handleOverlayClick(event) {
-        const clickedImages = document.querySelectorAll('.promo-item__photo_chittor.clicked');
-        if (clickedImages.length > 0 && event.target === this) {
-            clickedImages.forEach(img => img.classList.remove('clicked'));
-            this.style.display = 'none';
-        }
-    }
-    function animateImage(image) {
-    const isExpanded = image.classList.contains('clicked');
+            tezCircle.addEventListener('click', function() {
+                window.navigator.vibrate(200);
+                playAudio();
+            });
 
-    if (isExpanded) {
-        return;
-    } else {
-        image.classList.add('clicked');
-        document.querySelector('.overlay').style.display = 'block';
-    }
-    }
+            function playAudio() {
+                var audio = new Audio('./images/gulgul.mp3');
+                audio.play();
+            }
 
-    document.addEventListener('click', function(event) {
-        if (!event.target.classList.contains('promo-item__photo_chittor')) {
-            const clickedImages = document.querySelectorAll('.promo-item__photo_chittor.clicked');
-            
-            clickedImages.forEach(img => img.classList.remove('clicked'));
-            
-            document.querySelector('.overlay').style.display = 'none';
-        }
-    });
-    function playVideo() {
-        var modal = document.getElementById("videoModal");
-        var video = document.getElementById("modalVideo");
-        modal.style.display = "block";
-        video.play();
-    }
+            document.addEventListener('click', function(event) {
+                if (!event.target.classList.contains('promo-item__photo_chittor')) {
+                    const clickedImages = document.querySelectorAll('.promo-item__photo_chittor.clicked');
+                    
+                    clickedImages.forEach(img => img.classList.remove('clicked'));
+                    
+                    document.querySelector('.overlay').style.display = 'none';
+                }
+            });
 
-    function closeModal() {
-        var modal = document.getElementById("videoModal");
-        var video = document.getElementById("modalVideo");
-        modal.style.display = "none";
-        video.pause();
-    }
+            document.querySelector('.overlay').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    const clickedImages = document.querySelectorAll('.promo-item__photo_chittor.clicked');
+                    clickedImages.forEach(img => img.classList.remove('clicked'));
+                    this.style.display = 'none';
+                }
+            });
 
+            document.querySelectorAll('.promo-item__photo_chittor').forEach(function(image) {
+                image.addEventListener('click', function() {
+                    if (!this.classList.contains('clicked')) {
+                        this.classList.add('clicked');
+                        document.querySelector('.overlay').style.display = 'block';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.business-item').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    if (this.dataset.video) {
+                        playVideo(this.dataset.video);
+                    }
+                });
+            });
+
+            function playVideo(videoSrc) {
+                var modal = document.getElementById("videoModal");
+                var video = document.getElementById("modalVideo");
+                modal.style.display = "block";
+                video.src = videoSrc;
+                video.play();
+            }
+
+            function closeModal() {
+                var modal = document.getElementById("videoModal");
+                var video = document.getElementById("modalVideo");
+                modal.style.display = "none";
+                video.pause();
+                video.src = "";
+            }
+
+            document.getElementById("closeModal").addEventListener('click', closeModal);
+        });
     </script>
 </head>
 <body>
@@ -83,25 +92,21 @@
     </header>
 
     <main class="main">
-
         <div class="tez">
-            <div class="tez__circle" id="audioButton" >
+            <div class="tez__circle" id="audioButton">
                 <ion-icon class="tez-icon" name="filter"></ion-icon>
             </div>
             <audio id="audio" src="gulgul.mp3" preload="auto"></audio>
             <p class="tez__text" style="cursor: pointer">Tap for GulGul Mode</p>
         </div>
-
     </main>
 
     <section class="slider">
-        
         <div class="logo-wrap">
             <img class="logo-wrap__img" src="./images/gulgul.png" alt="google pay logo">
         </div>
 
         <div class="slider__contact">
-
             <div class="contact-item">
                 <div class="contact-item__photo">&#x20B9;</div>
                 <p class="contact-item__name">Pay</p>
@@ -134,7 +139,7 @@
 
             <div class="contact-item">
                 <div class="contact-item__photo" style="background-color: purple">P</div>
-                <p class="contact-item__name" onclick="">Paka</p>
+                <p class="contact-item__name">Paka</p>
             </div>
 
             <div class="contact-item">
@@ -143,82 +148,78 @@
             </div>
         </div>
     </section>
-            <div class="slider__business">
-            <p class="business-head">Fake Businesses</p>
-            <p class="business-subhead">International Dealings</p>
+    <div class="slider__business">
+        <p class="business-head">Fake Businesses</p>
+        <p class="business-subhead">International Dealings</p>
 
-            <div class="business-list">
+        <div class="business-list">
+            <div class="business-item" data-video="images/gulgulvideo.mp4">
+                <div class="business-item__photo" style="background-color: orangered;">D</div>
+                <p class="business-item__name">Danny</p>
+            </div>
 
-                <div class="business-item" onclick="playVideo()">
-                    <div class="business-item__photo" style="background-color: orangered;">D</div>
-                    <p class="business-item__name">Danny</p>
+            <div id="videoModal" class="modal">
+                <div class="modal-content">
+                    <span id="closeModal" class="close">&times;</span>
+                    <video id="modalVideo" controls>
+                        <source src="" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                
-                <div id="videoModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <video id="modalVideo" controls>
-                            <source src="images/gulgulvideo.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-                
+            </div>
 
-                <div class="business-item">
-                    <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
-                </div>
+            <div class="business-item">
+                <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
+            </div>
 
-                <div class="business-item">
-                    <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
-                </div>
-
+            <div class="business-item">
+                <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
             </div>
         </div>
+    </div>
 
-        <div class="slider__promo">
-            <p class="promo-head">Dream Payments</p>
-            <div class="promo-list">
-
-                <div class="promo-item">
-                    <img class="promo-item__photo" src="./images/oyo.png" alt="oyo rewards">
-                    <p class="promo-item__name">OYO</p>
-                </div>
+    <div class="slider__promo">
+        <p class="promo-head">Dream Payments</p>
+        <div class="promo-list">
+            <div class="promo-item">
+                <img class="promo-item__photo" src="./images/oyo.png" alt="oyo rewards">
+                <p class="promo-item__name">OYO</p>
             </div>
         </div>
-        <div class="slider__promo">
-            <p class="promo-head">Your Coupons</p>
-            <div class="promo-list">
-                <div class="promo-item">
-                    <img class="promo-item__photo_chittor" src="./images/gulgul_first.png" alt="oyo rewards" onclick="animateImage(this)">
-                    <img class="promo-item__photo_chittor" src="./images/gulgul_second.png" alt="oyo rewards" onclick="animateImage(this)">
-                    <img class="promo-item__photo_chittor" src="./images/gulgul_third.png" alt="oyo rewards" onclick="animateImage(this)">
-                </div>
+    </div>
+
+    <div class="slider__promo">
+        <p class="promo-head">Your Coupons</p>
+        <div class="promo-list">
+            <div class="promo-item">
+                <img class="promo-item__photo_chittor" src="./images/gulgul_first.png" alt="oyo rewards" onclick="animateImage(this)">
+                <img class="promo-item__photo_chittor" src="./images/gulgul_second.png" alt="oyo rewards" onclick="animateImage(this)">
+                <img class="promo-item__photo_chittor" src="./images/gulgul_third.png" alt="oyo rewards" onclick="animateImage(this)">
             </div>
         </div>
-    
-        <div class="overlay"></div>
+    </div>
 
-        <div class="slider__options">
+    <div class="overlay"></div>
 
-            <div class="option">
-                <ion-icon class="option__icon" name="refresh"></ion-icon>
-                <p class="option__text">Your Fake Transactions</p>
-            </div>
+    <div class="slider__options">
+        <div class="option">
+            <ion-icon class="option__icon" name="refresh"></ion-icon>
+            <p class="option__text">Your Fake Transactions</p>
+        </div>
 
-            <div class="option">
-                <ion-icon class="option__icon" name="card-outline"></ion-icon>
-                <p class="option__text">Balance after all bokkas</p>
-            </div>
+        <div class="option">
+            <ion-icon class="option__icon" name="card-outline"></ion-icon>
+            <p class="option__text">Balance after all bokkas</p>
+        </div>
 
-            <div class="option">
-                <ion-icon class="option__icon" name="heart"></ion-icon>
-                <div class="text-wrap">
-                    <p class="option__text">Invite New Balu Friend</p>
-                    <p class="option__subtext">Get &#x20B9;69 after each Balus's first payment</p>
-                </div>
+        <div class="option">
+            <ion-icon class="option__icon" name="heart"></ion-icon>
+            <div class="text-wrap">
+                <p class="option__text">Invite New Balu Friend</p>
+                <p class="option__subtext">Get &#x20B9;69 after each Balus's first payment</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 </body>
 </html>
