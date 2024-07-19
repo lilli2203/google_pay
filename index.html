@@ -143,5 +143,82 @@
             </div>
         </div>
     </section>
+            <div class="slider__business">
+            <p class="business-head">Fake Businesses</p>
+            <p class="business-subhead">International Dealings</p>
+
+            <div class="business-list">
+
+                <div class="business-item" onclick="playVideo()">
+                    <div class="business-item__photo" style="background-color: orangered;">D</div>
+                    <p class="business-item__name">Danny</p>
+                </div>
+                
+                <div id="videoModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <video id="modalVideo" controls>
+                            <source src="images/gulgulvideo.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                
+
+                <div class="business-item">
+                    <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
+                </div>
+
+                <div class="business-item">
+                    <div class="business-item__photo" style="background-color: rgb(231, 231, 231)"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slider__promo">
+            <p class="promo-head">Dream Payments</p>
+            <div class="promo-list">
+
+                <div class="promo-item">
+                    <img class="promo-item__photo" src="./images/oyo.png" alt="oyo rewards">
+                    <p class="promo-item__name">OYO</p>
+                </div>
+            </div>
+        </div>
+        <div class="slider__promo">
+            <p class="promo-head">Your Coupons</p>
+            <div class="promo-list">
+                <div class="promo-item">
+                    <img class="promo-item__photo_chittor" src="./images/gulgul_first.png" alt="oyo rewards" onclick="animateImage(this)">
+                    <img class="promo-item__photo_chittor" src="./images/gulgul_second.png" alt="oyo rewards" onclick="animateImage(this)">
+                    <img class="promo-item__photo_chittor" src="./images/gulgul_third.png" alt="oyo rewards" onclick="animateImage(this)">
+                </div>
+            </div>
+        </div>
+    
+        <div class="overlay"></div>
+
+        <div class="slider__options">
+
+            <div class="option">
+                <ion-icon class="option__icon" name="refresh"></ion-icon>
+                <p class="option__text">Your Fake Transactions</p>
+            </div>
+
+            <div class="option">
+                <ion-icon class="option__icon" name="card-outline"></ion-icon>
+                <p class="option__text">Balance after all bokkas</p>
+            </div>
+
+            <div class="option">
+                <ion-icon class="option__icon" name="heart"></ion-icon>
+                <div class="text-wrap">
+                    <p class="option__text">Invite New Balu Friend</p>
+                    <p class="option__subtext">Get &#x20B9;69 after each Balus's first payment</p>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
